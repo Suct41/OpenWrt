@@ -24,7 +24,8 @@ env:
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: .config
-  DIY_SH: diy.sh
+  DIY1_SH: diy1.sh
+  DIY2_SH: diy2.sh
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_COWTRANSFER: false
@@ -63,9 +64,9 @@ jobs:
     - name: Load custom feeds
       run: |
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
-        chmod +x $DIY_SH
+        chmod +x $DIY1_SH
         cd openwrt
-        $GITHUB_WORKSPACE/$DIY_SH
+        $GITHUB_WORKSPACE/$DIY1_SH
 
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
@@ -77,9 +78,9 @@ jobs:
       run: |
         [ -e files ] && mv files openwrt/files
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
-        chmod +x $DIY_SH
+        chmod +x $DIY2_SH
         cd openwrt
-        $GITHUB_WORKSPACE/$DIY_SH
+        $GITHUB_WORKSPACE/$DIY2_SH
 
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
