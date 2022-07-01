@@ -20,8 +20,8 @@ env:
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: config/nanopi-r2s.config
-  DIY1_SH: diy.sh/diy1.sh
-  DIY2_SH: diy.sh/diy2.sh
+  DIY1_SH: diy1.sh
+  DIY2_SH: diy2.sh
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_COWTRANSFER: false
