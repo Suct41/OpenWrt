@@ -10,6 +10,21 @@
 # Description: OpenWrt DIY script part 2 (After Update feeds)
 #
 
+
+# 选择argon为默认主题
+sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/Makefile  
+# 选择argon为默认主题
+sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci-nginx/Makefile   
+# 选择argon为默认主题
+sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci-ssl-nginx/Makefile  
+# 删除自带argon
+rm -rf  feeds/luci/themes/luci-theme-argon   
+# 替换新版argon
+git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon   
+
+# 删除自带adguardhome
+rm -rf feeds/packages/net/adguardhome
+
 # Modify default IP
 sed -i 's/192.168.1.1/192.168.2.1/g' package/base-files/files/bin/config_generate
 
@@ -27,9 +42,6 @@ sed -i 's/OpenWrt/suct41/g' package/base-files/files/bin/config_generate
 
 # Delete default password:password
 sed -i '/CYXluq4wUazHjmCDBCqXF/d' package/lean/default-settings/files/zzz-default-settings
-
-# Modify the version number版本号里显示一个自己的名字（AutoBuild $(TZ=UTC-8 date "+%Y.%m.%d") @ 这些都是后增加的）
-sed -i 's/OpenWrt /AutoBuild $(TZ=UTC-8 date "+%Y.%m.%d") @ suct41 /g' package/lean/default-settings/files/zzz-default-settings
 
 #修正连接数（by ベ七秒鱼ベ）
 sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=165535' package/base-files/files/etc/sysctl.conf
