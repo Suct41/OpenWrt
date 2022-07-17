@@ -12,3 +12,24 @@
 
 # Modify default IP
 sed -i 's/192.168.1.1/192.168.2.1/g' package/base-files/files/bin/config_generate
+
+# 禁止解析 IPv6 DNS 记录
+sed -i '/dnsmasq/aoption filter_aaaa 1'  package/network/services/dnsmasq/files/dhcp.conf
+
+#不记录日志
+sed -i '/dnsmasq/aoption quietdhcp 1' package/network/services/dnsmasq/files/dhcp.conf
+
+# 禁用内置的 IPv6 管理， /etc/config/network 中 config interface 'wan'、config interface 'lan' 字段下
+sed -i "/proto='none'/aset network.\$1.delegate='0'"  package/base-files/files/bin/config_generate
+
+# Modify hostname
+sed -i 's/OpenWrt/suct41/g' package/base-files/files/bin/config_generate 
+
+# Delete default password:password
+sed -i '/CYXluq4wUazHjmCDBCqXF/d' package/lean/default-settings/files/zzz-default-settings
+
+# Modify the version number版本号里显示一个自己的名字（AutoBuild $(TZ=UTC-8 date "+%Y.%m.%d") @ 这些都是后增加的）
+sed -i 's/OpenWrt /AutoBuild $(TZ=UTC-8 date "+%Y.%m.%d") @ suct41 /g' package/lean/default-settings/files/zzz-default-settings
+
+#修正连接数（by ベ七秒鱼ベ）
+sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=165535' package/base-files/files/etc/sysctl.conf
