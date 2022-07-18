@@ -13,9 +13,6 @@
 # Modify default IP
 sed -i 's/192.168.1.1/192.168.2.1/g' package/base-files/files/bin/config_generate
 
-# 删除自带adguardhome
-rm -rf feeds/packages/net/adguardhome
-
 # 禁止解析 IPv6 DNS 记录
 sed -i '/dnsmasq/aoption filter_aaaa 1'  package/network/services/dnsmasq/files/dhcp.conf
 
