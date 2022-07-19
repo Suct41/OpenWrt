@@ -10,10 +10,16 @@
 
 name: Build OpenWrt
 
-on:
-  repository_dispatch:
-  workflow_dispatch:
+on: 
+  release:
+    types: [published]
 
+  push:
+    branches: 
+      - master
+
+  schedule:
+    - cron: 0 8 * * 5
     
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
@@ -23,7 +29,7 @@ env:
   DIY1_SH: diy-part1.sh
   DIY2_SH: diy-part2.sh
   UPLOAD_BIN_DIR: false
-  UPLOAD_FIRMWARE: true
+  UPLOAD_FIRMWARE: false
   UPLOAD_RELEASE: false
   TZ: Asia/Shanghai
 
